@@ -1,26 +1,25 @@
 package com.utilities;
 
 import java.util.*;
-import java.io.*;
 
 public class Gene {
 
-	private int clusterId;
+	private int geneId;
 	private ArrayList<Double> geneValues;
 	private int GroundTruth;
 
-	public Gene(int clusterId, int GroundTruth, ArrayList geneValues) {
-		this.clusterId = clusterId;
+	public Gene(int geneId, int GroundTruth, ArrayList<Double> geneValues) {
+		this.geneId = geneId;
 		this.geneValues = geneValues;
 		this.GroundTruth = GroundTruth;
 	}
 
 	public int getClusterId() {
-		return clusterId;
+		return geneId;
 	}
 
 	public void setClusterId(int clusterId) {
-		this.clusterId = clusterId;
+		this.geneId = clusterId;
 	}
 
 	public ArrayList<Double> getGeneValues() {
