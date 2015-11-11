@@ -13,11 +13,12 @@ public class DistanceMatrix {
 	 * @param fileName
 	 *            where fileName is the location of the file in the folder
 	 */
+
 	static int geneCount = 0;
 	static int attributeCount = 0;
 
 	private void printMap(HashMap<Integer, Gene> geneMap) {
-		System.out.println(geneCount + " " + attributeCount);
+
 		// // System.out.println(geneMap);
 		for (HashMap.Entry<Integer, Gene> ent : geneMap.entrySet()) {
 			// System.out.println("here");
@@ -62,7 +63,7 @@ public class DistanceMatrix {
 		// System.out.println("counter:- " + counter);
 	}
 
-	private HashMap FileReader(File fileName) {
+	public HashMap FileReader(File fileName) {
 		String line = null;
 		String[] strArray = null;
 		ArrayList<Double> geneValues = null;
@@ -76,7 +77,6 @@ public class DistanceMatrix {
 
 				// System.out.println((strArray.length < 2));
 				if (strArray.length <= 2) {
-
 					geneCount = Integer.parseInt(strArray[0]);
 					attributeCount = Integer.parseInt(strArray[1]);
 				} else {
@@ -102,12 +102,14 @@ public class DistanceMatrix {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// System.out.println(geneCount + " " + attributeCount);
 		return geneMap;
 	}
 
 	private double[][] getDistanceMatrix(HashMap<Integer, Gene> geneMap) {
 		double[][] matrixArr = new double[geneCount + 1][geneCount + 1];
 		int counter = 0;
+
 		for (HashMap.Entry<Integer, Gene> outerEnt : geneMap.entrySet()) {
 			int i = outerEnt.getKey();
 			for (HashMap.Entry<Integer, Gene> innerEnt : geneMap.entrySet()) {
@@ -137,17 +139,22 @@ public class DistanceMatrix {
 		return root;
 	}
 
-	public void driver(File fileName) {
+	public Matrix driver(File fileName) {
 		HashMap<Integer, Gene> geneMap = FileReader(fileName);
+		System.out.println("size:- " + geneMap.size());
 		double[][] matrixArr = (getDistanceMatrix(geneMap));
+		System.out.println("len " + matrixArr.length);
 		Matrix distanceMatrix = setDistanceMatrix(matrixArr);
-		printMatrix(distanceMatrix);
+		System.out.println(distanceMatrix.getColumnDimension());
+		// printMatrix(distanceMatrix);
+		return distanceMatrix;
 	}
 
 	public static void main(String[] args) {
-		DistanceMatrix obj = new DistanceMatrix();
 		File fileName = new File(
 				"/home/jagvir/DataMiningHierarchicalClusteringAlgorithm/dataFiles/test.txt");
+		DistanceMatrix obj = new DistanceMatrix();
+
 		obj.driver(fileName);
 		ArrayList<Double> arry1 = new ArrayList<Double>();
 		ArrayList<Double> arry2 = new ArrayList<Double>();

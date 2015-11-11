@@ -5,7 +5,7 @@ import java.util.*;
 public class Cluster {
 
 	private int clusterID = 0;
-	private ArrayList<Double> geneList = null;
+	private ArrayList<Gene> geneList = null;
 
 	public int getClusterID() {
 		return clusterID;
@@ -15,11 +15,11 @@ public class Cluster {
 		this.clusterID = clusterID;
 	}
 
-	public ArrayList<Double> getGeneList() {
+	public ArrayList<Gene> getGeneList() {
 		return geneList;
 	}
 
-	public void setGeneList(ArrayList<Double> geneList) {
+	public void setGeneList(ArrayList<Gene> geneList) {
 		this.geneList = geneList;
 	}
 
