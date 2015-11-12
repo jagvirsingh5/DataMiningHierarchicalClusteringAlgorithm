@@ -14,11 +14,11 @@ public class Gene {
 		this.GroundTruth = GroundTruth;
 	}
 
-	public int getClusterId() {
+	public int getGeneId() {
 		return geneId;
 	}
 
-	public void setClusterId(int clusterId) {
+	public void setGeneId(int clusterId) {
 		this.geneId = clusterId;
 	}
 

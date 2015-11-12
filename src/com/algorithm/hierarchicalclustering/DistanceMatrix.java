@@ -17,19 +17,20 @@ public class DistanceMatrix {
 	static int geneCount = 0;
 	static int attributeCount = 0;
 
-	private void printMap(HashMap<Integer, Gene> geneMap) {
+	public void printMap(HashMap<Integer, Gene> geneMap) {
 
 		// // System.out.println(geneMap);
 		for (HashMap.Entry<Integer, Gene> ent : geneMap.entrySet()) {
 			// System.out.println("here");
-			System.out.print("clusterId:- " + ent.getKey() + "  geneValues:- ");
+			System.out.print("clusterId:- " + ent.getKey() + "  geneValues:- "
+					+ ent.getValue().getGeneId());
 
 			// System.out.print("clusterId:- " + ent.getKey() +
 			// "  geneValues:- ");
 			// // /+ "  geneValues:- " + ent.getValue()
-			for (Double arrayListElement : ent.getValue().getGeneValues()) {
-				System.out.print(arrayListElement + " ");
-			}
+			// for (Double arrayListElement : ent.getValue().getGeneValues()) {
+			// System.out.print(arrayListElement + " ");
+			// }
 			System.out.println();
 		}
 	}
@@ -141,6 +142,7 @@ public class DistanceMatrix {
 
 	public Matrix driver(File fileName) {
 		HashMap<Integer, Gene> geneMap = FileReader(fileName);
+		// printMap(geneMap);
 		System.out.println("size:- " + geneMap.size());
 		double[][] matrixArr = (getDistanceMatrix(geneMap));
 		System.out.println("len " + matrixArr.length);
