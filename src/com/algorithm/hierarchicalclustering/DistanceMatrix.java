@@ -16,6 +16,7 @@ public class DistanceMatrix {
 
 	static int geneCount = 0;
 	static int attributeCount = 0;
+	Matrix distanceMatrix = null;
 
 	public void printMap(HashMap<Integer, Gene> geneMap) {
 
@@ -35,7 +36,7 @@ public class DistanceMatrix {
 		}
 	}
 
-	private void printMatrix(double[][] matrixArr) {
+	public void printMatrix(double[][] matrixArr) {
 		for (int i = 1; i < matrixArr.length; i++) {
 			for (int j = 1; j < matrixArr[0].length; j++) {
 
@@ -46,6 +47,7 @@ public class DistanceMatrix {
 	}
 
 	public void printMatrix(Matrix distanceMatrix) {
+		System.out.println("here");
 		int counter = 0;
 		int arrayDim = distanceMatrix.getColumnDimension();
 		for (int i = 0; i < arrayDim; i++) {
@@ -60,7 +62,6 @@ public class DistanceMatrix {
 			System.out.println();
 		}
 
-		System.out.println();
 		// System.out.println("counter:- " + counter);
 	}
 
@@ -107,7 +108,7 @@ public class DistanceMatrix {
 		return geneMap;
 	}
 
-	private double[][] getDistanceMatrix(HashMap<Integer, Gene> geneMap) {
+	private double[][] getDistanceMatrixArr(HashMap<Integer, Gene> geneMap) {
 		double[][] matrixArr = new double[geneCount + 1][geneCount + 1];
 		int counter = 0;
 
@@ -125,7 +126,11 @@ public class DistanceMatrix {
 	}
 
 	private Matrix setDistanceMatrix(double[][] matrixArr) {
-		Matrix distanceMatrix = new Matrix(matrixArr);
+		distanceMatrix = new Matrix(matrixArr);
+		return distanceMatrix;
+	}
+
+	public Matrix getDistanceMatrix() {
 		return distanceMatrix;
 	}
 
@@ -143,11 +148,12 @@ public class DistanceMatrix {
 	public Matrix driver(File fileName) {
 		HashMap<Integer, Gene> geneMap = FileReader(fileName);
 		// printMap(geneMap);
-		System.out.println("size:- " + geneMap.size());
-		double[][] matrixArr = (getDistanceMatrix(geneMap));
-		System.out.println("len " + matrixArr.length);
+		// System.out.println("size:- " + geneMap.size());
+		double[][] matrixArr = (getDistanceMatrixArr(geneMap));
+		// printMatrix(matrixArr);
+		// System.out.println("len " + matrixArr.length);
 		Matrix distanceMatrix = setDistanceMatrix(matrixArr);
-		System.out.println(distanceMatrix.getColumnDimension());
+		// System.out.println(distanceMatrix.getColumnDimension());
 		// printMatrix(distanceMatrix);
 		return distanceMatrix;
 	}
