@@ -79,11 +79,11 @@ public class ClusterMap {
 		// ClusterMapInit();
 		int i = 0;
 		int clusterCount = clusterMap.size() * clusterMap.size();
-		// System.out.println(clusterCount);
-		while (i < 9) {
+		System.out.println(clusterCount);
+		while (clusterCount > 0) {
 			setSmallestDistance();
-			// clusterCount--;
-			i++;
+			clusterCount--;
+			// i++;
 		}
 
 		printMap(clusterMap);
@@ -107,7 +107,6 @@ public class ClusterMap {
 						&& distanceMatrix.get(i, j) != 0.0
 						&& !isGenePairPresent(i, j)
 						&& distanceMatrix.get(i, j) < 100000.0) {
-					// System.out.println("Herre");
 					smallestElement = distanceMatrix.get(i, j);
 
 					smallestI = i;
@@ -129,87 +128,45 @@ public class ClusterMap {
 	}
 
 	private void mergeCluster(int i, int j, double smallestElement) {
-		// if (smallestElement < 1000.0) {
-		// System.out.println("i = " + i + " j = " + j
-		// + "         :- smallestElement " + smallestElement);
-		// }
-
-		int geneCounter = 0;
-		ArrayList<Gene> tempList = new ArrayList<Gene>();
+//		System.out.print("hewe  ");
 		int keyToAdd = 0;
 		int keyToRemove = 0;
+		ArrayList<Gene> tempList = new ArrayList<Gene>();
 		for (HashMap.Entry<Integer, Cluster> ent : clusterMap.entrySet()) {
-			// System.out.println(i + " " + j);
 			ArrayList<Gene> geneList = ent.getValue().getGeneList();
-
 			for (int k = 0; k < geneList.size(); k++) {
-				if (i == geneList.get(k).getGeneId()) {
-					System.out.println(i + " = to "
-							+ geneList.get(k).getGeneId());
-					geneCounter++;
-				}
-				if (j == geneList.get(k).getGeneId()) {
-					System.out.println(j + " = to "
-							+ geneList.get(k).getGeneId());
-					geneCounter++;
-				}
-
-			}
-			if (geneCounter == 2) {
-
-				System.out.println("here " + i + " " + j);
-				geneCounter = 0;
-				return;
-			}
-
-			for (int k = 0; k < geneList.size(); k++) {
-				if (i == geneList.get(k).getGeneId()) {
+				if (!isGenePairPresent(i, j)
+						&& i == geneList.get(k).getGeneId()) {
 					tempList.addAll(geneList);
 					keyToAdd = ent.getKey();
 				}
-				if (j == geneList.get(k).getGeneId()) {
+				if (!isGenePairPresent(i, j)
+						&& j == geneList.get(k).getGeneId()) {
 					tempList.addAll(geneList);
 					keyToRemove = ent.getKey();
 				}
 			}
 
 		}
-
-		for (int m = 0; m < tempList.size(); m++) {
-			System.out.print(tempList.get(m).getGeneId() + " ");
-		}
-		System.out.println();
-		// clusterMap.remove(keyToAdd);
-
 		Cluster clusterObj = new Cluster();
+		clusterObj.setClusterID(i);
 		clusterObj.setGeneList(tempList);
-		clusterObj.setClusterID(keyToAdd);
 		clusterMap.put(keyToAdd, clusterObj);
 		clusterMap.remove(keyToRemove);
 
 	}
 
 	private boolean isGenePairPresent(int i, int j) {
-		int counter = 0;
 		for (HashMap.Entry<Integer, Cluster> ent : clusterMap.entrySet()) {
 			ArrayList<Gene> geneList = ent.getValue().getGeneList();
 			for (int k = 0; k < geneList.size(); k++) {
+				for (int l = k + 1; l < geneList.size(); l++) {
+					if (i == geneList.get(k).getGeneId()
+							&& j == geneList.get(l).getGeneId()) {
+						return true;
+					}
+				}
 
-				if (i == geneList.get(k).getGeneId()) {
-					counter++;
-					// System.out.print(i + " " + geneList.get(k).getGeneId()
-					// + " ");
-				}
-				if (j == geneList.get(k).getGeneId()) {
-					counter++;
-					// System.out.print(j + " " + geneList.get(k).getGeneId()
-					// + " ");
-				}
-			}
-			counter = 0;
-			// System.out.println();
-			if (counter == 2) {
-				return true;
 			}
 
 		}
